@@ -37,7 +37,7 @@ const orderSchema = new mongoose.Schema(
 			required: true,
 		},
 	},
-	{ timeseries: true }
+	{ timestamps: true }
 );
 
 // Create a model based on the schema

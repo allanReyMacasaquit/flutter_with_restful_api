@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
 			default: 'CANADA',
 		},
 	},
-	{ timeseries: true }
+	{ timestamps: true }
 );
 
 // Create a model based on the schema

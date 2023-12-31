@@ -109,3 +109,48 @@ export const deleteProduct = async (req, res) => {
 			.json({ error: `Error deleting the product: ${error.message}` });
 	}
 };
+
+export async function updateProduct(req, res) {
+	try {
+		const productId = req.params.id;
+		const {
+			name,
+			title,
+			category,
+			description,
+			oldPrice,
+			price,
+			imageUrl,
+			sizes,
+		} = req.body;
+
+		// Find the product by ID and update its details
+		const updatedProduct = await Product.findByIdAndUpdate(
+			productId,
+			{
+				$set: {
+					name,
+					title,
+					category,
+					description,
+					oldPrice,
+					price,
+					imageUrl,
+					sizes,
+				},
+			},
+			{ new: true } // Return the updated document
+		);
+
+		if (!updatedProduct) {
+			return res.status(404).json({ error: 'Product not found' });
+		}
+
+		return res.status(200).json(updatedProduct); // Return the updated product
+	} catch (error) {
+		console.error(error);
+		return res
+			.status(500)
+			.json({ error: `Error updating the product: ${error.message}` });
+	}
+}
